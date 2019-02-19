@@ -2,34 +2,40 @@
   text-align: centre;
   height: 100vh;
   display: grid;
-  grid-template: 1fr 1fr 7fr / 4fr 1fr;
+  grid-template: 1fr 1fr 7fr / 4fr;
   grid-template-areas:
-    "Header Sidebar"
-    "LogIn Sidebar"
-    "Intro Sidebar";
+    "Header "
+    "LogIn "
+    "Intro ";
 }
 
 .Header {
-  background: rgba(0, 255, 0);
+  background: plum;
   grid-area: Header;
 }
 
 .Introduction {
-  background: rgba(255, 0, 0);
   grid-area: Intro;
-  display: flex;
+  display: grid;
+  grid-template: 1fr /4fr 1fr;
+  grid-template-areas: "Main SideBar";
   justify-content: space-between;
   align-items: centre;
 }
 
+.main {
+  background: salmon;
+  grid-area: Main;
+}
+
 .LogIn {
-  background: rgba(255, 0, 255);
+  background: beige;
   grid-area: LogIn;
 }
 
-.SideBar {
-  background: rgba(0, 255, 255);
-  grid-area: Sidebar;
+.Sidebar {
+  background: lightblue;
+  grid-area: SideBar;
 }
 
 /*.App {

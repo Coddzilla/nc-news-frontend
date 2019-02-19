@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import * as api from "./api";
 import { Link, Router } from "@reach/router";
+import Articles from "./Articles";
+import Topics from "./Topics";
+import SideBar from "./Sidebar";
 
 class Introduction extends Component {
   state = {
@@ -12,11 +15,25 @@ class Introduction extends Component {
     //destructure
     return (
       <div className="Introduction">
-        {topics.map(topic => (
-          <p key={topic.slug}>
-            <Link to={`/api/topics/${topic.slug}`}>{topic.slug}</Link>
-          </p>
-        ))}
+        <section className="Sidebar">
+          <SideBar />
+        </section>
+        <section className="main">
+          <nav className="nav">
+            {" "}
+            {topics.map(topic => (
+              <Link to={`/topics/${topic.slug}`} key={topic.slug}>
+                {topic.slug}
+              </Link>
+            ))}
+            <Link to="/articles">View all articles</Link>
+          </nav>
+
+          <Router>
+            <Articles path="/articles" />
+            <Topics path="/topics/:topic" />
+          </Router>
+        </section>
       </div>
     );
   }
@@ -24,6 +41,7 @@ class Introduction extends Component {
   componentDidMount() {
     this.fetchTopics();
   }
+  ß;
 
   fetchTopics = () => {
     api

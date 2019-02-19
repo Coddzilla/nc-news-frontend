@@ -15,25 +15,30 @@ class Articles extends Component {
   };
   render() {
     const { articles } = this.state;
+
     return (
-      <div>
+      <ul className="articleList">
         {" "}
         {articles.map(article => (
-          <p key={article.id}> {article.title} </p>
+          <li key={article.article_id}> {article.title} </li>
         ))}
-      </div>
+      </ul>
     );
   }
 
-  componendDidMount() {
+  componentDidMount() {
     this.fetchArticles();
   }
 
   fetchArticles = () => {
-    api.getArticles().then(articles => {
+    api.getArticles().then(({ articles }) => {
       this.setState({ articles });
     });
   };
+
+  // componendDidUpdate(prevProps, prevState) {
+  //   if (prevState !== this.state) this.fetchArticles();
+  // }
 }
 
 export default Articles;
