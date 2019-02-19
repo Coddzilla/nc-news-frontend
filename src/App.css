@@ -16,6 +16,7 @@
 
 .Introduction {
   grid-area: Intro;
+  height: 100vh;
   display: grid;
   grid-template: 1fr /4fr 1fr;
   grid-template-areas: "Main SideBar";

@@ -31,7 +31,7 @@ class Articles extends Component {
   }
 
   fetchArticles = () => {
-    api.getArticles().then(({ articles }) => {
+    api.getTopArticles().then(({ articles }) => {
       this.setState({ articles });
     });
   };

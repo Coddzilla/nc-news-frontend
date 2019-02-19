@@ -9,6 +9,14 @@ export const getTopics = async () => {
 
 export const getArticles = async () => {
   const { data } = await axios.get(`${BASE_URL}/articles`);
+  console.log("data");
+  return data;
+};
+
+export const getTopArticles = async () => {
+  const { data } = await axios.get(
+    `${BASE_URL}/articles?sort_by=votes&order=asc&limit=3`
+  );
 
   return data;
 };
@@ -21,6 +29,5 @@ export const getArticlesByTopic = async topic => {
 
 export const fetchUser = async username => {
   const { data } = await axios.get(`${BASE_URL}/users/${username}`);
-  console.log("in the api function");
   return data.user;
 };

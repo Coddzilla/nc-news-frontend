@@ -4,11 +4,10 @@ import React, { Component } from "react";
 class Auth extends Component {
   state = { username: "" };
   render() {
-    console.log(this.props);
-    if (this.props.user) {
+    if (this.props.user !== "") {
       return (
         <div>
-          <p>{this.props.children}</p>
+          <>{this.props.children}</>
         </div>
       );
     }
@@ -31,6 +30,7 @@ class Auth extends Component {
     event.preventDefault();
     const username = this.state.username;
     this.props.LogIn(username);
+    this.setState({ username: "" });
   };
 }
 

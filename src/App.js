@@ -13,7 +13,6 @@ class App extends Component {
     user: ""
   };
   render() {
-    console.log(this.state.user);
     return (
       <div className="App">
         <Header />
@@ -29,8 +28,6 @@ class App extends Component {
   // grumpy19;
 
   setUser = username => {
-    // const { username } = this.props;
-    console.log(username);
     api.fetchUser(username).then(user => {
       this.setState({ user });
     });
