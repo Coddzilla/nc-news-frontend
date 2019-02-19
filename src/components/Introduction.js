@@ -27,6 +27,13 @@ class Introduction extends Component {
               </Link>
             ))}
             <Link to="/articles">View all articles</Link>
+            <button
+              onClick={() => {
+                this.props.handleClick();
+              }}
+            >
+              Log out
+            </button>
           </nav>
 
           <Router>

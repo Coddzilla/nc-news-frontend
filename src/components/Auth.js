@@ -9,7 +9,6 @@ class Auth extends Component {
       return (
         <div>
           <p>{this.props.children}</p>
-          <button>Log out</button>
         </div>
       );
     }
