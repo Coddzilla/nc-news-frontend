@@ -31,3 +31,21 @@ export const fetchUser = async username => {
   const { data } = await axios.get(`${BASE_URL}/users/${username}`);
   return data.user;
 };
+
+export const getArticle = async article_id => {
+  const { data } = await axios.get(`${BASE_URL}/articles/${article_id}`);
+  console.log(data);
+  return data.article;
+};
+
+export const getUserArticles = async username => {
+  const { data } = await axios.get(`${BASE_URL}/users/${username}/articles`);
+
+  return data.articles;
+};
+
+export const vote = async (article_id, direction) => {
+  await axios.patch(`${BASE_URL}/articles/${article_id}`, {
+    inc_votes: direction
+  });
+};

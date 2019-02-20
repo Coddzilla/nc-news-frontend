@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import * as api from "../components/api";
+import { Link } from "@reach/router";
+import Comments from "./Comments";
+import QuickView from "./QuickView";
 
 class Topics extends Component {
   state = {
@@ -9,9 +12,17 @@ class Topics extends Component {
     const { articlesByTopic } = this.state;
 
     return (
-      <ul>
+      <ul className="articleByTopicList">
         {articlesByTopic.map(article => {
-          return <li key={`${article.article_id}`}>{article.title}</li>;
+          return (
+            <span key={`${article.article_id}`}>
+              <Link to={`/articles/${article.article_id}`}>
+                {article.title}
+              </Link>
+              <QuickView />
+              <Comments />
+            </span>
+          );
         })}
       </ul>
     );

@@ -1,48 +1,8 @@
-/*
-import React, { Component } from "react";
-import * as api from "../components/api";
-
-class AllArticles extends Component {
-  state = {
-    all_articles: []
-  };
-  render() {
-    const { all_articles } = this.state;
-
-    return (
-      <ul className="AllarticleList">
-        {" "}
-        {all_articles.map(article => (
-          <li key={article.article_id}> {article.title} </li>
-        ))}
-      </ul>
-    );
-  }
-
-  componentDidMount() {
-    this.fetchAll_articles();
-  }
-
-  fetchAll_articles = () => {
-    api.getArticles().then(({ all_articles }) => {
-      this.setState({ all_articles });
-    });
-  };
-}
-
-export default AllArticles;
-*/
-
 import React, { Component } from "react";
 import * as api from "./api";
-
-// const Articles = () => {
-//   return (
-//     <div className="Articles">
-//       <h2>Articles</h2>
-//     </div>
-//   );
-// };
+import { Link } from "@reach/router";
+import Comments from "./Comments";
+import QuickView from "./QuickView";
 
 class AllArticles extends Component {
   state = {
@@ -55,7 +15,11 @@ class AllArticles extends Component {
       <ul className="AllArticleList">
         {" "}
         {articles.map(article => (
-          <li key={article.article_id}> {article.title} </li>
+          <div key={article.article_id}>
+            <Link to={`/articles/${article.article_id}`}>{article.title}</Link>{" "}
+            <QuickView />
+            <Comments />
+          </div>
         ))}
       </ul>
     );

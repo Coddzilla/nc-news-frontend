@@ -4,15 +4,25 @@ import { Link, Router } from "@reach/router";
 import TopArticles from "./TopArticles";
 import AllArticles from "./All_Articles";
 import Topics from "./Topics";
+import Article from "./Article";
+import AuthorPage from "./AuthorPage";
+
 import SideBar from "./Sidebar";
 
 class Introduction extends Component {
   state = {
     topics: [],
-    article_view: "Introduction"
+    article_view: "Introduction",
+    //
+    isLoading: true
   };
   render() {
     const { topics } = this.state;
+    //
+    if (this.state.isLoading) {
+      return <h2>Loading...</h2>;
+    }
+    //
     if (this.state.article_view === "Introduction") {
       return (
         <div className={`${this.state.article_view}`}>
@@ -27,22 +37,16 @@ class Introduction extends Component {
                   {topic.slug}
                 </Link>
               ))}
-              {/* this actually shows all articles, need to have a function that only shows the 3 top rated*/}
               <Link to="/top_articles">View top articles</Link>
               <Link to="/articles">View all articles</Link>
-              {/* <button
-                onClick={() => {
-                  this.props.handleClick();
-                }}
-              >
-                Log out
-              </button> */}
             </nav>
 
             <Router>
               <TopArticles path="/top_articles" />
               <AllArticles path="/articles" />
               <Topics path="/topics/:topic" />
+              <Article path="/articles/:article_id" />
+              <AuthorPage path="/users/:username/articles" />
             </Router>
           </section>
         </div>
@@ -65,7 +69,7 @@ class Introduction extends Component {
     api
       .getTopics()
       .then(topics => {
-        this.setState({ topics });
+        this.setState({ topics, isLoading: false });
       })
       .catch(err => console.log(err));
   };

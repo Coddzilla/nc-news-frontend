@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as api from "./api";
+import { Link } from "@reach/router";
 
 // const Articles = () => {
 //   return (
@@ -17,12 +18,20 @@ class TopArticles extends Component {
     const { articles } = this.state;
 
     return (
-      <ul className="articleList">
+      <section>
         {" "}
-        {articles.map(article => (
-          <li key={article.article_id}> {article.title} </li>
-        ))}
-      </ul>
+        <ul className="articleList">
+          {" "}
+          {articles.map(article => (
+            <div key={article.article_id}>
+              <Link to={`/articles/${article.article_id}`}>
+                {" "}
+                {article.title}{" "}
+              </Link>
+            </div>
+          ))}
+        </ul>
+      </section>
     );
   }
 
