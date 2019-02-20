@@ -4,6 +4,7 @@ import * as api from "./api";
 import Comments from "./Comments";
 import Voter from "./Voter";
 import QuickView from "./QuickView";
+import SideBar from "./Sidebar";
 
 class AuthorPage extends Component {
   state = {
@@ -17,7 +18,7 @@ class AuthorPage extends Component {
       return <h2>Loading...</h2>;
     }
     return (
-      <section>
+      <section className="main">
         <div>Articles written by {username}:</div>
         <ul>
           {authorsArticles.map(article => {
@@ -33,6 +34,7 @@ class AuthorPage extends Component {
             );
           })}
         </ul>
+        <SideBar />
       </section>
     );
   }

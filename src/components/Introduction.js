@@ -7,8 +7,6 @@ import Topics from "./Topics";
 import Article from "./Article";
 import AuthorPage from "./AuthorPage";
 
-import SideBar from "./Sidebar";
-
 class Introduction extends Component {
   state = {
     topics: [],
@@ -26,10 +24,9 @@ class Introduction extends Component {
     if (this.state.article_view === "Introduction") {
       return (
         <div className={`${this.state.article_view}`}>
-          <section className="Sidebar">
-            <SideBar />
-          </section>
-          <section className="main">
+          {/* <section className="Sidebar" /> */}
+
+          <section>
             <nav className="nav">
               {" "}
               {topics.map(topic => (

@@ -3,6 +3,7 @@ import * as api from "../components/api";
 import { Link } from "@reach/router";
 import Comments from "./Comments";
 import QuickView from "./QuickView";
+import SideBar from "./Sidebar";
 
 class Topics extends Component {
   state = {
@@ -12,19 +13,22 @@ class Topics extends Component {
     const { articlesByTopic } = this.state;
 
     return (
-      <ul className="articleByTopicList">
-        {articlesByTopic.map(article => {
-          return (
-            <span key={`${article.article_id}`}>
-              <Link to={`/articles/${article.article_id}`}>
-                {article.title}
-              </Link>
-              <QuickView />
-              <Comments />
-            </span>
-          );
-        })}
-      </ul>
+      <section className="main">
+        <ul className="articleByTopicList">
+          {articlesByTopic.map(article => {
+            return (
+              <span key={`${article.article_id}`}>
+                <Link to={`/articles/${article.article_id}`}>
+                  {article.title}
+                </Link>
+                <QuickView />
+                <Comments />
+              </span>
+            );
+          })}
+        </ul>
+        <SideBar />
+      </section>
     );
   }
 

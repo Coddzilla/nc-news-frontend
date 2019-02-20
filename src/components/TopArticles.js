@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import * as api from "./api";
 import { Link } from "@reach/router";
+import SideBar from "./Sidebar";
 
 // const Articles = () => {
 //   return (
@@ -18,7 +19,7 @@ class TopArticles extends Component {
     const { articles } = this.state;
 
     return (
-      <section>
+      <section className="main">
         {" "}
         <ul className="articleList">
           {" "}
@@ -31,6 +32,7 @@ class TopArticles extends Component {
             </div>
           ))}
         </ul>
+        <SideBar />
       </section>
     );
   }

@@ -3,6 +3,7 @@ import * as api from "./api";
 import { Link } from "@reach/router";
 import Comments from "./Comments";
 import QuickView from "./QuickView";
+import SideBar from "./Sidebar";
 
 class AllArticles extends Component {
   state = {
@@ -12,16 +13,29 @@ class AllArticles extends Component {
     const { articles } = this.state;
 
     return (
-      <ul className="AllArticleList">
-        {" "}
-        {articles.map(article => (
-          <div key={article.article_id}>
-            <Link to={`/articles/${article.article_id}`}>{article.title}</Link>{" "}
-            <QuickView />
-            <Comments />
-          </div>
-        ))}
-      </ul>
+      <section className="main">
+        <select name="sort_by" id="sort_by">
+          <option value="title" key="sort_by_title">
+            title
+          </option>
+          <option value="date" key="sort_by_date">
+            date
+          </option>
+        </select>
+        <ul className="AllArticleList">
+          {" "}
+          {articles.map(article => (
+            <div key={article.article_id}>
+              <Link to={`/articles/${article.article_id}`}>
+                {article.title}
+              </Link>{" "}
+              <QuickView />
+              <Comments />
+            </div>
+          ))}
+        </ul>
+        <SideBar />
+      </section>
     );
   }
 

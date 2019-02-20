@@ -18,8 +18,8 @@
   grid-area: Intro;
   height: 100vh;
   display: grid;
-  grid-template: 1fr /4fr 1fr;
-  grid-template-areas: "Main SideBar";
+  grid-template: 1fr;
+  grid-template-areas: "Main";
   justify-content: space-between;
   align-items: centre;
 }
@@ -28,10 +28,14 @@
   background: salmon;
   grid-area: Main;
   overflow-y: auto;
+  height: 100vh;
+  display: grid;
+  grid-template: 1fr / 4fr 1fr;
+  grid-template-areas: "Main Sidebar";
 }
 
 .LogIn {
-  background: beige;
+  background: pink;
   grid-area: LogIn;
 }
 
