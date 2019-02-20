@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as api from "./api";
 import { Link, Router } from "@reach/router";
-import Articles from "./Articles";
+import TopArticles from "./TopArticles";
 import AllArticles from "./All_Articles";
 import Topics from "./Topics";
 import SideBar from "./Sidebar";
@@ -30,18 +30,18 @@ class Introduction extends Component {
               {/* this actually shows all articles, need to have a function that only shows the 3 top rated*/}
               <Link to="/top_articles">View top articles</Link>
               <Link to="/articles">View all articles</Link>
-              <button
+              {/* <button
                 onClick={() => {
                   this.props.handleClick();
                 }}
               >
                 Log out
-              </button>
+              </button> */}
             </nav>
 
             <Router>
-              <Articles path="/top_articles" />
-              <AllArticles path="/all_articles" />
+              <TopArticles path="/top_articles" />
+              <AllArticles path="/articles" />
               <Topics path="/topics/:topic" />
             </Router>
           </section>

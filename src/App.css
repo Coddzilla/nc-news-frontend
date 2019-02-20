@@ -27,6 +27,7 @@
 .main {
   background: salmon;
   grid-area: Main;
+  overflow-y: auto;
 }
 
 .LogIn {

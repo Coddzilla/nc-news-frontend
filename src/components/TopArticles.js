@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import * as api from "../components/api";
+import * as api from "./api";
 
 // const Articles = () => {
 //   return (
@@ -9,7 +9,7 @@ import * as api from "../components/api";
 //   );
 // };
 
-class Articles extends Component {
+class TopArticles extends Component {
   state = {
     articles: []
   };
@@ -41,4 +41,4 @@ class Articles extends Component {
   // }
 }
 
-export default Articles;
+export default TopArticles;

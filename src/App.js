@@ -15,11 +15,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header handleClick={this.handleClick} />
         <Auth LogIn={this.setUser} user={this.state.user}>
           {/* user={this.state.user} need to pass this down to Auth? */}
           <LogIn />
-          <Introduction handleClick={this.handleClick} />
+          <Introduction />
         </Auth>
       </div>
     );
