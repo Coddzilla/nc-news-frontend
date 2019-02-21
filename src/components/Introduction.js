@@ -10,8 +10,6 @@ import AuthorPage from "./AuthorPage";
 class Introduction extends Component {
   state = {
     topics: [],
-    article_view: "Introduction",
-    //
     isLoading: true
   };
   render() {
@@ -20,47 +18,33 @@ class Introduction extends Component {
     if (this.state.isLoading) {
       return <h2>Loading...</h2>;
     }
-    //
-    if (this.state.article_view === "Introduction") {
-      return (
-        <div className={`${this.state.article_view}`}>
-          {/* <section className="Sidebar" /> */}
-
-          <section>
-            <nav className="nav">
-              {" "}
-              {topics.map(topic => (
-                <Link to={`/topics/${topic.slug}`} key={topic.slug}>
-                  {topic.slug}
-                </Link>
-              ))}
-              <Link to="/top_articles">View top articles</Link>
-              <Link to="/articles">View all articles</Link>
-            </nav>
-
-            <Router>
-              <TopArticles path="/top_articles" />
-              <AllArticles path="/articles" />
-              <Topics path="/topics/:topic" />
-              <Article path="/articles/:article_id" />
-              <AuthorPage path="/users/:username/articles" />
-            </Router>
-          </section>
-        </div>
-      );
-    }
     return (
-      <div className={`${this.state.article_view}`}>
-        <p>Hello</p>
-      </div>
+      <section>
+        <nav className="nav">
+          {" "}
+          {topics.map(topic => (
+            <Link to={`/topics/${topic.slug}`} key={topic.slug}>
+              {topic.slug}
+            </Link>
+          ))}
+          <Link to="/top_articles">View top articles</Link>
+          <Link to="/articles">View all articles</Link>
+        </nav>
+
+        <Router className="main">
+          <TopArticles path="/top_articles" />
+          <AllArticles path="/articles" />
+          <Topics path="/topics/:topic" />
+          <Article path="/articles/:article_id" />
+          <AuthorPage path="/users/:username/articles" />
+        </Router>
+      </section>
     );
-    // why is this not
   }
 
   componentDidMount() {
     this.fetchTopics();
   }
-  ß;
 
   fetchTopics = () => {
     api

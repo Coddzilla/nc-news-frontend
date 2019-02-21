@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import * as api from "./api";
 import { Link } from "@reach/router";
 import SideBar from "./Sidebar";
@@ -19,21 +19,23 @@ class TopArticles extends Component {
     const { articles } = this.state;
 
     return (
-      <section className="main">
-        {" "}
-        <ul className="articleList">
+      <>
+        <section className="MainLeft">
           {" "}
-          {articles.map(article => (
-            <div key={article.article_id}>
-              <Link to={`/articles/${article.article_id}`}>
-                {" "}
-                {article.title}{" "}
-              </Link>
-            </div>
-          ))}
-        </ul>
-        <SideBar />
-      </section>
+          <ul className="articleList">
+            {" "}
+            {articles.map(article => (
+              <div key={article.article_id}>
+                <Link to={`/articles/${article.article_id}`}>
+                  {" "}
+                  {article.title}{" "}
+                </Link>
+              </div>
+            ))}
+          </ul>
+        </section>
+        <SideBar sideBarView="default" article={{}} />
+      </>
     );
   }
 

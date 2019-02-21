@@ -10,7 +10,8 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    user: ""
+    user: "",
+    username: ""
   };
   render() {
     return (
@@ -29,7 +30,7 @@ class App extends Component {
 
   setUser = username => {
     api.fetchUser(username).then(user => {
-      this.setState({ user });
+      this.setState({ user, username });
     });
   };
 

@@ -9,33 +9,46 @@ import SideBar from "./Sidebar";
 class AuthorPage extends Component {
   state = {
     authorsArticles: [],
-    isLoading: true
+    isLoading: true,
+    sideBarView: "default",
+    article: {}
   };
   render() {
     const { username } = this.props;
-    const { isLoading, authorsArticles } = this.state;
+    const { isLoading, authorsArticles, article, sideBarView } = this.state;
     if (isLoading) {
       return <h2>Loading...</h2>;
     }
     return (
-      <section className="main">
-        <div>Articles written by {username}:</div>
-        <ul>
-          {authorsArticles.map(article => {
-            return (
-              <div key={article.article_id}>
-                <Link to={`/articles/${article.article_id}`}>
-                  {article.title}
-                </Link>
-                <Comments />
-                <QuickView />
-                <Voter article_id={article.article_id} votes={article.votes} />
-              </div>
-            );
-          })}
-        </ul>
-        <SideBar />
-      </section>
+      <>
+        <section className="MainLeft">
+          <div>Articles written by {username}:</div>
+          <ul>
+            {authorsArticles.map(article => {
+              return (
+                <div key={article.article_id}>
+                  <Link to={`/articles/${article.article_id}`}>
+                    {article.title}
+                  </Link>
+                  <QuickView
+                    article={article}
+                    handleClick={this.handleClickQuickView}
+                  />
+                  <Comments
+                    article={article}
+                    handleClick={this.handleClickComments}
+                  />
+                  <Voter
+                    article_id={article.article_id}
+                    votes={article.votes}
+                  />
+                </div>
+              );
+            })}
+          </ul>
+        </section>
+        <SideBar sideBarView={sideBarView} article={article} />
+      </>
     );
   }
 
@@ -48,6 +61,14 @@ class AuthorPage extends Component {
     api.getUserArticles(username).then(authorsArticles => {
       this.setState({ authorsArticles, isLoading: false });
     });
+  };
+
+  handleClickComments = article => {
+    this.setState({ sideBarView: "commentView", article });
+  };
+
+  handleClickQuickView = article => {
+    this.setState({ sideBarView: "QuickView", article });
   };
 }
 

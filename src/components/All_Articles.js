@@ -7,35 +7,48 @@ import SideBar from "./Sidebar";
 
 class AllArticles extends Component {
   state = {
-    articles: []
+    articles: [],
+    sideBarView: "default",
+    article: {}
   };
   render() {
-    const { articles } = this.state;
-
+    const { article, articles, sideBarView } = this.state;
     return (
-      <section className="main">
-        <select name="sort_by" id="sort_by">
-          <option value="title" key="sort_by_title">
-            title
-          </option>
-          <option value="date" key="sort_by_date">
-            date
-          </option>
-        </select>
-        <ul className="AllArticleList">
-          {" "}
-          {articles.map(article => (
-            <div key={article.article_id}>
-              <Link to={`/articles/${article.article_id}`}>
-                {article.title}
-              </Link>{" "}
-              <QuickView />
-              <Comments />
-            </div>
-          ))}
-        </ul>
-        <SideBar />
-      </section>
+      <>
+        <section className="MainLeft">
+          <select name="sort_by" id="sort_by">
+            <option value="title" key="sort_by_title">
+              title
+            </option>
+            <option value="date" key="sort_by_date">
+              date
+            </option>
+          </select>
+          <ul className="AllArticleList">
+            {" "}
+            {articles.map(article => (
+              <div key={article.article_id}>
+                <Link to={`/articles/${article.article_id}`}>
+                  {article.title}
+                </Link>{" "}
+                <QuickView
+                  article={article}
+                  handleClick={this.handleClickQuickView}
+                />
+                <Comments
+                  article={article}
+                  handleClick={this.handleClickComments}
+                />
+                {
+                  //how to get article from comment/quick view to sidebar
+                  //onClick in each that changes the view type and the article to send
+                }
+              </div>
+            ))}
+          </ul>
+        </section>
+        <SideBar sideBarView={sideBarView} article={article} />
+      </>
     );
   }
 
@@ -49,9 +62,13 @@ class AllArticles extends Component {
     });
   };
 
-  // componendDidUpdate(prevProps, prevState) {
-  //   if (prevState !== this.state) this.fetchArticles();
-  // }
+  handleClickComments = article => {
+    this.setState({ sideBarView: "commentView", article });
+  };
+
+  handleClickQuickView = article => {
+    this.setState({ sideBarView: "QuickView", article });
+  };
 }
 
 export default AllArticles;

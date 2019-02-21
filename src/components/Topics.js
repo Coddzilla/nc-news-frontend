@@ -7,28 +7,38 @@ import SideBar from "./Sidebar";
 
 class Topics extends Component {
   state = {
-    articlesByTopic: []
+    articlesByTopic: [],
+    sideBarView: "default",
+    article: {}
   };
   render() {
-    const { articlesByTopic } = this.state;
+    const { articlesByTopic, article, sideBarView } = this.state;
 
     return (
-      <section className="main">
-        <ul className="articleByTopicList">
-          {articlesByTopic.map(article => {
-            return (
-              <span key={`${article.article_id}`}>
-                <Link to={`/articles/${article.article_id}`}>
-                  {article.title}
-                </Link>
-                <QuickView />
-                <Comments />
-              </span>
-            );
-          })}
-        </ul>
-        <SideBar />
-      </section>
+      <>
+        <section className="MainLeft">
+          <ul className="articleByTopicList">
+            {articlesByTopic.map(article => {
+              return (
+                <span key={`${article.article_id}`}>
+                  <Link to={`/articles/${article.article_id}`}>
+                    {article.title}
+                  </Link>
+                  <QuickView
+                    article={article}
+                    handleClick={this.handleClickQuickView}
+                  />
+                  <Comments
+                    article={article}
+                    handleClick={this.handleClickComments}
+                  />
+                </span>
+              );
+            })}
+          </ul>
+        </section>
+        <SideBar sideBarView={sideBarView} article={article} />
+      </>
     );
   }
 
@@ -49,6 +59,14 @@ class Topics extends Component {
       this.fetchArticlesByTopic();
     }
   }
+
+  handleClickComments = article => {
+    this.setState({ sideBarView: "commentView", article });
+  };
+
+  handleClickQuickView = article => {
+    this.setState({ sideBarView: "QuickView", article });
+  };
 }
 
 export default Topics;

@@ -9,7 +9,7 @@ export const getTopics = async () => {
 
 export const getArticles = async () => {
   const { data } = await axios.get(`${BASE_URL}/articles`);
-  console.log("data");
+
   return data;
 };
 
@@ -34,7 +34,7 @@ export const fetchUser = async username => {
 
 export const getArticle = async article_id => {
   const { data } = await axios.get(`${BASE_URL}/articles/${article_id}`);
-  console.log(data);
+
   return data.article;
 };
 
@@ -48,4 +48,18 @@ export const vote = async (article_id, direction) => {
   await axios.patch(`${BASE_URL}/articles/${article_id}`, {
     inc_votes: direction
   });
+};
+
+export const getViewComments = async article_id => {
+  const { data } = await axios.get(
+    `${BASE_URL}/articles/${article_id}/comments?order=desc`
+  );
+  return data.comments;
+};
+
+export const patchComments = async (fullComment, article_id) => {
+  const { data } = await axios.patch(
+    `${BASE_URL}/articles/${article_id}/comments`,
+    { fullComment }
+  );
 };

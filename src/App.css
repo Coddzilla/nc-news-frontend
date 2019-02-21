@@ -4,9 +4,9 @@
   display: grid;
   grid-template: 1fr 1fr 7fr / 4fr;
   grid-template-areas:
-    "Header "
-    "LogIn "
-    "Intro ";
+    "Header"
+    "LogIn"
+    "Main";
 }
 
 .Header {
@@ -14,7 +14,7 @@
   grid-area: Header;
 }
 
-.Introduction {
+/* .Introduction {
   grid-area: Intro;
   height: 100vh;
   display: grid;
@@ -22,7 +22,7 @@
   grid-template-areas: "Main";
   justify-content: space-between;
   align-items: centre;
-}
+} */
 
 .main {
   background: salmon;
@@ -31,7 +31,11 @@
   height: 100vh;
   display: grid;
   grid-template: 1fr / 4fr 1fr;
-  grid-template-areas: "Main Sidebar";
+  grid-template-areas: "MainLeft Sidebar";
+}
+
+.MainLeft {
+  grid-area: MainLeft;
 }
 
 .LogIn {
@@ -41,7 +45,7 @@
 
 .Sidebar {
   background: lightblue;
-  grid-area: SideBar;
+  grid-area: Sidebar;
 }
 
 /*.App {
