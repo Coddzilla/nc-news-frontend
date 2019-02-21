@@ -7,6 +7,8 @@ import Topics from "./Topics";
 import Article from "./Article";
 import AuthorPage from "./AuthorPage";
 import NoMatch from "./NoMatch";
+import PostArticle from "./postArticle";
+
 class Introduction extends Component {
   state = {
     topics: [],
@@ -30,6 +32,7 @@ class Introduction extends Component {
           ))}
           <Link to="/top_articles">View top articles</Link>
           <Link to="/articles">View all articles</Link>
+          <Link to="/postArticle">Post an Article!</Link>
         </nav>
 
         <Router className="main">
@@ -42,8 +45,9 @@ class Introduction extends Component {
           />
           <AuthorPage
             path="/users/:username/articles"
-            username={this.props.username}
+            usernameLoggedIn={this.props.username}
           />
+          <PostArticle path="/postArticle" username={this.props.username} />
           <NoMatch default />
         </Router>
       </section>

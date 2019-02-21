@@ -9,21 +9,38 @@ class AllArticles extends Component {
   state = {
     articles: [],
     sideBarView: "default",
-    article: {}
+    article: {},
+    selectedSort: "",
+    sort_by: ""
   };
   render() {
-    const { article, articles, sideBarView } = this.state;
+    console.log(this.props.username);
+    const { article, articles, sideBarView, sort_by } = this.state;
+    console.log("sort|_by", sort_by);
     return (
       <>
         <section className="MainLeft">
-          <select name="sort_by" id="sort_by">
-            <option value="title" key="sort_by_title">
+          <select name="sort_by" id="sort_by" onChange={this.handleChange}>
+            <option value="title" key="title">
               title
             </option>
-            <option value="date" key="sort_by_date">
+            <option value="created_at" key="created_at">
               date
             </option>
+            <option value="comment_count" key="comment_count">
+              comment count
+            </option>
+            <option value="votes" key="votes">
+              votes
+            </option>
           </select>
+          <button
+            onClick={() => {
+              this.props.navigate("/postArticle");
+            }}
+          >
+            Post an article!
+          </button>
           <ul className="AllArticleList">
             {" "}
             {articles.map(article => (
@@ -43,6 +60,15 @@ class AllArticles extends Component {
                   //how to get article from comment/quick view to sidebar
                   //onClick in each that changes the view type and the article to send
                 }
+                {this.props.username === article.author && (
+                  <button key="deleteArticle">Delete Article</button>
+                )}
+                {/* <button
+                  key="deleteArticle"
+                  disabled={this.props.username !== article.username}
+                >
+                  Delete Article
+                </button> */}
               </div>
             ))}
           </ul>
@@ -60,9 +86,16 @@ class AllArticles extends Component {
     this.fetchArticles();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.sort_by !== this.state.sort_by) {
+      this.fetchArticles();
+    }
+  }
+
   fetchArticles = () => {
+    const { sort_by } = this.state;
     api
-      .getArticles()
+      .getArticles(sort_by)
       .then(({ articles }) => {
         this.setState({ articles });
       })
@@ -75,6 +108,15 @@ class AllArticles extends Component {
 
   handleClickQuickView = article => {
     this.setState({ sideBarView: "QuickView", article });
+  };
+
+  handleSelect = chosen => {
+    console.log(chosen);
+    this.setState({ selectedSort: chosen });
+  };
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   };
 }
 

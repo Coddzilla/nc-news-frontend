@@ -50,7 +50,7 @@ class Article extends Component {
 
   fetchArticle = () => {
     const { article_id } = this.props;
-    console.log(article_id);
+
     api.getArticle(article_id).then(article => {
       this.setState({ article, isLoading: false });
     });

@@ -7,10 +7,15 @@ export const getTopics = async () => {
   return data.topics;
 };
 
-export const getArticles = async () => {
-  const { data } = await axios.get(`${BASE_URL}/articles`);
+export const getArticles = async sort_by => {
+  if (sort_by === "") {
+    const { data } = await axios.get(`${BASE_URL}/articles`);
 
-  return data;
+    return data;
+  } else {
+    const { data } = await axios.get(`${BASE_URL}/articles?sort_by=${sort_by}`);
+    return data;
+  }
 };
 
 export const getTopArticles = async () => {
@@ -62,4 +67,16 @@ export const patchComments = async (fullComment, article_id) => {
     `${BASE_URL}/articles/${article_id}/comments`,
     { fullComment }
   );
+};
+
+export const postArticle = async (title, body, username, topic) => {
+  console.log("postData", title, body, username);
+  const { data } = await axios.post(`${BASE_URL}/topics/${topic}/articles`, {
+    title,
+    body,
+    username
+  });
+  console.log("in the api");
+
+  return data;
 };

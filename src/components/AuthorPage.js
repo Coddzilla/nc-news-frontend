@@ -50,7 +50,7 @@ class AuthorPage extends Component {
         <SideBar
           sideBarView={sideBarView}
           article={article}
-          username={this.props.username}
+          username={this.props.usernameLoggedIn}
         />
       </>
     );

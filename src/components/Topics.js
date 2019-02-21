@@ -17,6 +17,13 @@ class Topics extends Component {
     return (
       <>
         <section className="MainLeft">
+          <button
+            onClick={() => {
+              this.props.navigate("/postArticle");
+            }}
+          >
+            Post an article!
+          </button>
           <ul className="articleByTopicList">
             {articlesByTopic.map(article => {
               return (
@@ -32,6 +39,9 @@ class Topics extends Component {
                     article={article}
                     handleClick={this.handleClickComments}
                   />
+                  {this.props.username === article.author && (
+                    <button key="deleteArticle">Delete Article</button>
+                  )}
                 </span>
               );
             })}
@@ -45,6 +55,21 @@ class Topics extends Component {
       </>
     );
   }
+
+  /*
+ componentDidMount() {
+    const retrievedState = localStorage.getItem('state')
+    if (retrievedState) {
+      this.setState(JSON.parse(retrievedState));
+    }
+  }
+  componentDidUpdate() {
+    this.handleSave();
+  }
+  handleSave = () => {
+    localStorage.setItem('state', JSON.stringify(this.state))
+  }
+*/
 
   componentDidMount() {
     this.fetchArticlesByTopic();
