@@ -5,13 +5,12 @@ import Voter from "./Voter";
 class SideBar extends Component {
   state = {
     dataToView: [],
-    fullComment: "",
-    user: ""
+    fullComment: ""
   };
   render() {
     const { dataToView } = this.state;
-    console.log(this.state.fullComment);
-    const { article, sideBarView } = this.props;
+
+    const { username, article, sideBarView } = this.props;
 
     //default
     if (!article.article_id || sideBarView === "default") {
@@ -28,11 +27,16 @@ class SideBar extends Component {
         <div className="Sidebar">
           <form onSubmit={this.handleSubmit}>
             <label>Post a comment</label>
-            <input onChange={this.handleChange} value={this.state.newComment} />
+            <input
+              onChange={this.handleChange}
+              value={this.state.newComment}
+              required
+            />
             <button type="submit">Post</button>
           </form>
           <div>
             {dataToView.map(comment => {
+              console.log(username, comment.author);
               return (
                 <span key={comment.comment_id}>
                   <h4>Comment: {comment.body}</h4>
@@ -45,7 +49,7 @@ class SideBar extends Component {
                   <h5>id: {comment.comment_id}</h5>
                   <button
                     key="deleteComment"
-                    disabled={this.state.user !== comment.author}
+                    disabled={this.props.username !== comment.author}
                   >
                     Delete comment
                   </button>

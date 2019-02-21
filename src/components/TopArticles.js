@@ -34,7 +34,12 @@ class TopArticles extends Component {
             ))}
           </ul>
         </section>
-        <SideBar sideBarView="default" article={{}} />
+        <SideBar
+          sideBarView="default"
+          article={{}}
+          //why is this changed?
+          username={this.props.username}
+        />
       </>
     );
   }

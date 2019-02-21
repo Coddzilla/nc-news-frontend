@@ -10,17 +10,17 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    user: "",
-    username: ""
+    user: {}
   };
   render() {
+    console.log("user", this.state.user);
     return (
       <div className="App">
         <Header handleClick={this.handleClick} />
         <Auth LogIn={this.setUser} user={this.state.user}>
           {/* user={this.state.user} need to pass this down to Auth? */}
           <LogIn />
-          <Introduction />
+          <Introduction username={this.state.user.username} />
         </Auth>
       </div>
     );
@@ -30,7 +30,7 @@ class App extends Component {
 
   setUser = username => {
     api.fetchUser(username).then(user => {
-      this.setState({ user, username });
+      this.setState({ user });
     });
   };
 

@@ -6,7 +6,7 @@ import AllArticles from "./All_Articles";
 import Topics from "./Topics";
 import Article from "./Article";
 import AuthorPage from "./AuthorPage";
-
+import NoMatch from "./NoMatch";
 class Introduction extends Component {
   state = {
     topics: [],
@@ -14,6 +14,7 @@ class Introduction extends Component {
   };
   render() {
     const { topics } = this.state;
+    console.log("in introduction", this.props.username);
     //
     if (this.state.isLoading) {
       return <h2>Loading...</h2>;
@@ -32,11 +33,18 @@ class Introduction extends Component {
         </nav>
 
         <Router className="main">
-          <TopArticles path="/top_articles" />
-          <AllArticles path="/articles" />
-          <Topics path="/topics/:topic" />
-          <Article path="/articles/:article_id" />
-          <AuthorPage path="/users/:username/articles" />
+          <TopArticles path="/top_articles" username={this.props.username} />
+          <AllArticles path="/articles" username={this.props.username} />
+          <Topics path="/topics/:topic" username={this.props.username} />
+          <Article
+            path="/articles/:article_id"
+            username={this.props.username}
+          />
+          <AuthorPage
+            path="/users/:username/articles"
+            username={this.props.username}
+          />
+          <NoMatch default />
         </Router>
       </section>
     );

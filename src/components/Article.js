@@ -35,7 +35,11 @@ class Article extends Component {
             <h4>{article.body}</h4>
           </article>
         </section>
-        <SideBar sideBarView="commentView" article={article} />
+        <SideBar
+          sideBarView="commentView"
+          article={article}
+          username={this.props.username}
+        />
       </>
     );
   }

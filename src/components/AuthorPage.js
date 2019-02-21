@@ -47,7 +47,11 @@ class AuthorPage extends Component {
             })}
           </ul>
         </section>
-        <SideBar sideBarView={sideBarView} article={article} />
+        <SideBar
+          sideBarView={sideBarView}
+          article={article}
+          username={this.props.username}
+        />
       </>
     );
   }

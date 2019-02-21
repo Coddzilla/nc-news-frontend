@@ -47,7 +47,11 @@ class AllArticles extends Component {
             ))}
           </ul>
         </section>
-        <SideBar sideBarView={sideBarView} article={article} />
+        <SideBar
+          sideBarView={sideBarView}
+          article={article}
+          username={this.props.username}
+        />
       </>
     );
   }
@@ -57,9 +61,12 @@ class AllArticles extends Component {
   }
 
   fetchArticles = () => {
-    api.getArticles().then(({ articles }) => {
-      this.setState({ articles });
-    });
+    api
+      .getArticles()
+      .then(({ articles }) => {
+        this.setState({ articles });
+      })
+      .catch(err => {});
   };
 
   handleClickComments = article => {

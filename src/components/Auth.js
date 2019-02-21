@@ -15,7 +15,12 @@ class Auth extends Component {
       <div className="Auth">
         <form onSubmit={this.handleSubmit}>
           <label>Enter username to Log in</label>
-          <input onChange={this.handleChange} value={this.state.username} />
+          <input
+            onChange={this.handleChange}
+            value={this.state.username}
+            required
+          />
+
           <button type="submit">Log in</button>
         </form>
       </div>
