@@ -8,15 +8,37 @@ class SideBar extends Component {
     fullComment: ""
   };
   render() {
-    const { dataToView } = this.state;
+    const { dataToView, fullComment } = this.state;
 
     const { username, article, sideBarView } = this.props;
-
+    console.log(fullComment);
     //default
     if (!article.article_id || sideBarView === "default") {
       return (
         <div className="Sidebar">
           <h2>DEFAULT SideBar</h2>
+        </div>
+      );
+    }
+
+    if (sideBarView === "commentView" && article && dataToView.length === 0) {
+      return (
+        <div className="Sidebar">
+          <h2>
+            There are currently no comments for this. Why don't you be the
+            first!?
+          </h2>
+          <div>
+            <form onSubmit={this.handleSubmit}>
+              <label>Post a comment</label>
+              <input
+                onChange={this.handleChange}
+                value={this.state.newComment}
+                required
+              />
+              <button type="submit">Post</button>
+            </form>
+          </div>
         </div>
       );
     }
@@ -36,7 +58,6 @@ class SideBar extends Component {
           </form>
           <div>
             {dataToView.map(comment => {
-              console.log(username, comment.author);
               return (
                 <span key={comment.comment_id}>
                   <h4>Comment: {comment.body}</h4>
@@ -47,12 +68,19 @@ class SideBar extends Component {
                   <h5>Written by:{comment.author}</h5>
                   <h5>created at: {comment.created_at}</h5>
                   <h5>id: {comment.comment_id}</h5>
-                  <button
-                    key="deleteComment"
-                    disabled={this.props.username !== comment.author}
-                  >
-                    Delete comment
-                  </button>
+                  {this.props.username === comment.author && (
+                    <button
+                      onClick={() => {
+                        this.handleClick(
+                          this.props.article.article_id,
+                          comment.comment_id
+                        );
+                      }}
+                      key="deleteComment"
+                    >
+                      Delete comment
+                    </button>
+                  )}
                 </span>
               );
             })}
@@ -88,6 +116,17 @@ class SideBar extends Component {
     }
   }
 
+  handleClick = (article_id, comment_id) => {
+    api.deleteCommentById(article_id, comment_id).then(() => {
+      const newDataToView = this.state.dataToView.filter(
+        comment => comment.comment_id !== comment_id
+      );
+      this.setState({ dataToView: newDataToView });
+    });
+
+    //set state so it rerenders but don't know if this is necessary?
+  };
+
   fetchViewData = () => {
     const { article, sideBarView } = this.props;
     if (sideBarView === "commentView") {
@@ -100,14 +139,13 @@ class SideBar extends Component {
   handleChange = event => {
     event.preventDefault();
     const fullComment = event.target.value;
-
     this.setState({ fullComment });
   };
   handleSubmit = event => {
     const { article } = this.props;
     event.preventDefault();
     const fullComment = this.state.fullComment;
-    // api.patchComments(fullComment, article.article_id);
+    // api.addComment(article.article_id, fullComment);
     console.log("need to make a function for post comments in the back end");
     this.setState({ fullComment: "" });
   };

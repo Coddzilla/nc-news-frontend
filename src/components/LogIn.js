@@ -1,11 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
+import { Link } from "@reach/router";
 
-const LogIn = () => {
-  return (
-    <div className="LogIn">
-      <h2>LogIn</h2>
-    </div>
-  );
-};
+class LogIn extends Component {
+  render() {
+    return (
+      <div className="LogIn">
+        <h2>LogIn</h2>
+        <Link to="/profile">Profile</Link>
+      </div>
+    );
+  }
+}
 
 export default LogIn;

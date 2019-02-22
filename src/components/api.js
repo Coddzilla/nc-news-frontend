@@ -70,7 +70,7 @@ export const patchComments = async (fullComment, article_id) => {
 };
 
 export const postArticle = async (title, body, username, topic) => {
-  console.log("postData", title, body, username);
+  console.log("postData", topic, title, body, username);
   const { data } = await axios.post(`${BASE_URL}/topics/${topic}/articles`, {
     title,
     body,
@@ -78,5 +78,38 @@ export const postArticle = async (title, body, username, topic) => {
   });
   console.log("in the api");
 
+  return data;
+};
+
+export const deleteCommentById = async (article_id, comment_id) => {
+  await axios.delete(
+    `${BASE_URL}/articles/${article_id}/comments/${comment_id}`
+  );
+  console.log(article_id, comment_id);
+};
+
+export const deleteArticleById = async article_id => {
+  console.log(`${BASE_URL}/articles/${article_id}`);
+  return axios.delete(`${BASE_URL}/articles/${article_id}`);
+  // console.log(article_id, data);
+  // return data;
+};
+
+// export const addComment = async (article_id, comment) => {
+//   const { data } = await axios.post(
+//     `${BASE_URL}/articles/${article_id}/comments`,
+//     {
+//       comment
+//     }
+//   );
+
+//   return data;
+// };
+
+export const addTopic = async newTopic => {
+  const { data } = await axios.post(`${BASE_URL}/topics`, {
+    newTopic,
+    description: "This is a new Topic"
+  });
   return data;
 };

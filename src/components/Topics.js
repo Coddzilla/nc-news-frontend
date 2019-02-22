@@ -40,7 +40,14 @@ class Topics extends Component {
                     handleClick={this.handleClickComments}
                   />
                   {this.props.username === article.author && (
-                    <button key="deleteArticle">Delete Article</button>
+                    <button
+                      onClick={() => {
+                        this.handleClick(article.article_id);
+                      }}
+                      key="deleteArticle"
+                    >
+                      Delete Article
+                    </button>
                   )}
                 </span>
               );
@@ -95,6 +102,22 @@ class Topics extends Component {
 
   handleClickQuickView = article => {
     this.setState({ sideBarView: "QuickView", article });
+  };
+
+  handleClick = article_id => {
+    api
+      .deleteArticleById(article_id)
+      .then(data => {
+        console.log(data, "inside .then");
+        const newArticles = this.state.articlesByTopic.filter(
+          article => article.article_id !== article_id
+        );
+
+        this.setState({ articlesByTopic: newArticles });
+      })
+      .catch(err => console.dir(err, "inside catch"));
+
+    //set state so it rerenders but don't know if this is necessary?
   };
 }
 

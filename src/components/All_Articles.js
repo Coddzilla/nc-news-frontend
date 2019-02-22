@@ -61,14 +61,15 @@ class AllArticles extends Component {
                   //onClick in each that changes the view type and the article to send
                 }
                 {this.props.username === article.author && (
-                  <button key="deleteArticle">Delete Article</button>
+                  <button
+                    onClick={() => {
+                      this.handleClick(article.article_id);
+                    }}
+                    key="deleteArticle"
+                  >
+                    Delete Article
+                  </button>
                 )}
-                {/* <button
-                  key="deleteArticle"
-                  disabled={this.props.username !== article.username}
-                >
-                  Delete Article
-                </button> */}
               </div>
             ))}
           </ul>
@@ -94,6 +95,7 @@ class AllArticles extends Component {
 
   fetchArticles = () => {
     const { sort_by } = this.state;
+    console.log("getting new artickes");
     api
       .getArticles(sort_by)
       .then(({ articles }) => {
@@ -117,6 +119,22 @@ class AllArticles extends Component {
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+  };
+
+  handleClick = article_id => {
+    api
+      .deleteArticleById(article_id)
+      .then(data => {
+        console.log(data, "inside .then");
+        const newArticles = this.state.articles.filter(
+          article => article.article_id !== article_id
+        );
+        console.log("newArticles", newArticles);
+        this.setState({ articles: newArticles });
+      })
+      .catch(err => console.dir(err, "inside catch"));
+
+    //set state so it rerenders but don't know if this is necessary?
   };
 }
 

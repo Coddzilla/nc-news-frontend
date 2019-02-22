@@ -19,7 +19,7 @@ class App extends Component {
         <Header handleClick={this.handleClick} />
         <Auth LogIn={this.setUser} user={this.state.user}>
           {/* user={this.state.user} need to pass this down to Auth? */}
-          <LogIn />
+          <LogIn username={this.state.user.username} />
           <Introduction username={this.state.user.username} />
         </Auth>
       </div>

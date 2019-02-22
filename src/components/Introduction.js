@@ -8,6 +8,7 @@ import Article from "./Article";
 import AuthorPage from "./AuthorPage";
 import NoMatch from "./NoMatch";
 import PostArticle from "./postArticle";
+import Profile from "./profile";
 
 class Introduction extends Component {
   state = {
@@ -37,12 +38,14 @@ class Introduction extends Component {
 
         <Router className="main">
           <TopArticles path="/top_articles" username={this.props.username} />
+          <TopArticles path="/" username={this.props.username} />
           <AllArticles path="/articles" username={this.props.username} />
           <Topics path="/topics/:topic" username={this.props.username} />
           <Article
             path="/articles/:article_id"
             username={this.props.username}
           />
+          <Profile path="/profile" username={this.props.username} />
           <AuthorPage
             path="/users/:username/articles"
             usernameLoggedIn={this.props.username}
